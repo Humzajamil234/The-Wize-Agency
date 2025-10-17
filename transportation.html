@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wize Auto Transport | Nationwide Vehicle Shipping</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a4b8c;
+            --secondary: #f8b500;
+            --accent: #e63946;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--secondary);
+            color: var(--dark);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: #e6a500;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0d3a70;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+        }
+
+        nav li {
+            margin-left: 2rem;
+        }
+
+        nav a {
+            font-weight: 600;
+            position: relative;
+        }
+
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        nav a:hover:after, nav a.active:after {
+            width: 100%;
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            background: white;
+            top: 100%;
+            left: 0;
+            min-width: 230px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s ease;
+            z-index: 1000;
+        }
+        .dropdown-content li a {
+            color: var(--dark);
+            padding: 12px 18px;
+            display: block;
+            transition: 0.3s;
+        }
+        .dropdown-content li a:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        .dropdown:hover .dropdown-content {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Arrow animation */
+        .arrow {
+            border: solid var(--dark);
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            margin-left: 6px;
+            transform: rotate(45deg);
+            transition: 0.3s;
+        }
+        .dropdown:hover .arrow {
+            transform: rotate(225deg);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* 🔥 UPDATED HERO SECTION WITH CALCULATOR */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('./images/marcin-jozwiak-kGoPcmpPT7c-unsplash.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 8rem 0 5rem;
+            margin-top: 70px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            opacity: 0;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Calculator Styles */
+        .calculator-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .calculator-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .calculator-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .calculator-header p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        .calculator-content {
+            padding: 2rem;
+        }
+
+        .calculator-form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .calculator-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.9rem;
+        }
+
+        .calculator-form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .calculator-form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .calculator-checkbox-label {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.8rem;
+        }
+
+        .calculator-checkbox-label:hover {
+            border-color: var(--primary);
+        }
+
+        .calculator-checkbox-label input {
+            margin-right: 6px;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 0.5rem;
+        }
+
+        .calculate-btn:hover {
+            background: #e6a500;
+            transform: translateY(-2px);
+        }
+
+        .calculate-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-section {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .result-header h4 {
+            color: #495057;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #28a745;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .price-breakdown {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 0.9rem;
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .breakdown-total {
+            font-weight: 700;
+            color: #495057;
+        }
+
+        .calculator-action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-outline {
+            padding: 10px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: var(--primary);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta h2:after {
+            background-color: var(--secondary);
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Services Section */
+.services {
+    padding: 5rem 0;
+    background-color: white;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+    margin-bottom: 1rem;
+}
+
+.service-card ul {
+    margin-top: 1rem;
+}
+
+.service-card li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.service-card li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+/* Services Page */
+.services-page {
+    padding: 5rem 0;
+}
+
+.service-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 5rem;
+}
+
+.service-detail.reverse {
+    direction: rtl;
+}
+
+.service-detail.reverse > * {
+    direction: ltr;
+}
+
+.service-info h2 {
+    margin-bottom: 1.5rem;
+}
+
+.service-options {
+    margin: 2rem 0;
+}
+
+.option {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.option h4 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.option i {
+    margin-right: 0.5rem;
+    color: var(--primary);
+}
+
+.service-list {
+    margin: 1.5rem 0;
+}
+
+.service-list li {
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.service-list li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.specialty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.specialty-item {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.specialty-item i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.service-image {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.service-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* How It Works Section */
+.how-it-works {
+    padding: 5rem 0;
+    background-color: #f8f9fa;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    counter-reset: step-counter;
+}
+
+.step {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.step:before {
+    counter-increment: step-counter;
+    content: counter(step-counter);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.step h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 5rem 0;
+            background-color: #f8f9fa;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            counter-reset: step-counter;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .step h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background-color: var(--light);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: var(--secondary-color);
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle.active {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .contact h2 {
+            color: white;
+        }
+
+        .contact h2:after {
+            background-color: var(--secondary);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            opacity: 0;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-detail i {
+            margin-right: 1rem;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            opacity: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Form Success Message */
+        .form-success {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero {
+                padding: 6rem 0 3rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav li {
+                margin: 0;
+                text-align: center;
+            }
+            
+            nav a {
+                display: block;
+                padding: 1rem;
+            }
+            
+            .dropdown-content {
+                position: static;
+                display: none;
+                opacity: 1;
+                transform: none;
+                box-shadow: none;
+                width: 100%;
+            }
+            
+            .dropdown-content.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calculator-action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .total-price {
+                font-size: 1.8rem;
+            }
+            
+            .calculator-content {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content p, .page-header p {
+                font-size: 1rem;
+            }
+            
+            .calculator-header h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/68f24d051ba9ba194fa710ef/1j7p7po8n';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>The <span>Wize</span> Agency</h1>
+            </div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    
+                    <!-- Dropdown Menu -->
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Services <i class="arrow down"></i></a>
+                        <ul class="dropdown-content">
+                            <li><a href="transportation.html" class="active">Transportation</a></li>
+                            <li><a href="digital.html">Digital Solution</a></li>
+                            <li><a href="youtube.html">YouTube & Social Media</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 🔥 UPDATED HERO SECTION WITH CALCULATOR ON RIGHT -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Nationwide Auto Transport You Can Count On</h1>
+                    <p>At The Wize Auto Transport, we make vehicle shipping simple, reliable, and affordable. Whether you're moving across the country or relocating a fleet, our team ensures your car, truck, or SUV arrives safely — right on time.</p>
+                    <a href="#services" class="btn btn-primary">Explore Our Services</a>
+                </div>
+                
+                <!-- Calculator on Right Side -->
+                <div class="calculator-card">
+                    <div class="calculator-header">
+                        <h3>Get An Instant Free Quote</h3>
+                        <p>Fast, reliable auto transport across the USA</p>
+                    </div>
+                    
+                    <div class="calculator-content">
+                        <form id="calculatorForm">
+                            <div class="form-grid">
+                                <div class="calculator-form-group">
+                                    <label for="pickupZip">Pickup ZIP Code *</label>
+                                    <input type="text" id="pickupZip" class="calculator-form-control" placeholder="e.g., 33101" required maxlength="5">
+                                </div>
+                                
+                                <div class="calculator-form-group">
+                                    <label for="deliveryZip">Delivery ZIP Code *</label>
+                                    <input type="text" id="deliveryZip" class="calculator-form-control" placeholder="e.g., 77001" required maxlength="5">
+                                </div>
+                            </div>
+                            
+                            <div class="calculator-form-group">
+                                <label for="vehicleType">Vehicle Type *</label>
+                                <select id="vehicleType" class="calculator-form-control" required>
+                                    <option value="">Select Vehicle Type</option>
+                                    <option value="sedan">Sedan</option>
+                                    <option value="suv">SUV</option>
+                                    <option value="truck">Truck</option>
+                                    <option value="van">Van</option>
+                                    <option value="motorcycle">Motorcycle</option>
+                                    <option value="atv">ATV/UTV</option>
+                                    <option value="boat">Boat</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="calculator-form-group">
+                                    <label for="vehicleCondition">Vehicle Condition *</label>
+                                    <select id="vehicleCondition" class="calculator-form-control" required>
+                                        <option value="running">Running</option>
+                                        <option value="non_running">Non-Running</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="calculator-form-group">
+                                    <label for="transportType">Transport Type *</label>
+                                    <select id="transportType" class="calculator-form-control" required>
+                                        <option value="open">Open Carrier</option>
+                                        <option value="enclosed">Enclosed Carrier</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="calculator-form-group">
+                                <label for="speedPriority">Delivery Speed *</label>
+                                <select id="speedPriority" class="calculator-form-control" required>
+                                    <option value="standard">Standard (7-10 days)</option>
+                                    <option value="expedited">Expedited (3-5 days)</option>
+                                    <option value="rush">Rush (1-2 days)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="calculator-form-group">
+                                <label>Extra Services</label>
+                                <div class="checkbox-grid">
+                                    <label class="calculator-checkbox-label">
+                                        <input type="checkbox" name="extraServices" value="top_load"> Top Load Only
+                                    </label>
+                                    <label class="calculator-checkbox-label">
+                                        <input type="checkbox" name="extraServices" value="guaranteed_pickup"> Guaranteed Pickup
+                                    </label>
+                                    <label class="calculator-checkbox-label">
+                                        <input type="checkbox" name="extraServices" value="weekend_pickup"> Weekend Pickup
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" id="calculateBtn" class="calculate-btn">
+                                Calculate Instant Quote
+                            </button>
+                        </form>
+                        
+                        <div id="quoteResult" class="result-section">
+                            <!-- Result will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Auto Transport</h3>
+                    <p>Our core service is car shipping, tailored for individuals, dealerships, and commercial clients.</p>
+                    <ul>
+                        <li>Open Auto Transport</li>
+                        <li>Enclosed Auto Transport</li>
+                        <li>Door-to-Door Delivery</li>
+                        <li>Expedited Auto Shipping</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-truck-loading"></i>
+                    </div>
+                    <h3>Freight & Commercial</h3>
+                    <p>We offer freight trucking solutions for businesses moving commercial loads or multiple vehicles.</p>
+                    <ul>
+                        <li>Dealership Transfers</li>
+                        <li>Auction Deliveries</li>
+                        <li>Fleet Relocation</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                    <h3>Motorcycle & Specialty</h3>
+                    <p>We handle motorcycles, ATVs, boats, and other specialty vehicles with attention to detail.</p>
+                    <ul>
+                        <li>Motorcycles</li>
+                        <li>ATVs & UTVs</li>
+                        <li>Boats & Watercraft</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Services Content -->
+    <section class="services-page">
+        <div class="container">
+            <!-- Auto Transport -->
+            <div class="service-detail">
+                <div class="service-info">
+                    <h2>Auto Transport</h2>
+                    <p>Our core service is car shipping, tailored for individuals, dealerships, and commercial clients. Whether it's a family sedan or a high-end luxury vehicle, we ensure safe, damage-free delivery.</p>
+                    <div class="service-options">
+                        <div class="option">
+                            <h4><i class="fas fa-truck"></i> Open Auto Transport</h4>
+                            <p>The most cost-effective and popular option for standard vehicles.</p>
+                        </div>
+                        <div class="option">
+                            <h4><i class="fas fa-truck-moving"></i> Enclosed Auto Transport</h4>
+                            <p>For luxury, exotic, or collectible vehicles needing extra protection.</p>
+                        </div>
+                        <div class="option">
+                            <h4><i class="fas fa-home"></i> Door-to-Door Delivery</h4>
+                            <p>We pick up and deliver as close as possible to your address.</p>
+                        </div>
+                        <div class="option">
+                            <h4><i class="fas fa-bolt"></i> Expedited Auto Shipping</h4>
+                            <p>Priority handling for time-sensitive moves with faster delivery times.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-image">
+                    <img src="./images/big-car-carrier-truck-loaded-600nw-2259417425.webp" alt="Auto Transport">
+                </div>
+            </div>
+
+            <!-- Freight & Commercial -->
+            <div class="service-detail reverse">
+                <div class="service-info">
+                    <h2>Freight & Commercial Logistics</h2>
+                    <p>We also offer freight trucking solutions for businesses moving commercial loads or multiple vehicles. From dealership transfers to auction deliveries, our logistics network ensures smooth coordination from dispatch to delivery.</p>
+                    <ul class="service-list">
+                        <li>Dealership vehicle transfers</li>
+                        <li>Auction vehicle deliveries</li>
+                        <li>Fleet relocation services</li>
+                        <li>Commercial freight transport</li>
+                        <li>Multi-vehicle transport</li>
+                    </ul>
+                </div>
+                <div class="service-image">
+                    <img src="./images/forest-plum-WuYe3F0gL4s-unsplash.jpg" alt="Freight Transport">
+                </div>
+            </div>
+
+            <!-- Motorcycle & Specialty -->
+            <div class="service-detail">
+                <div class="service-info">
+                    <h2>Motorcycle & Specialty Vehicle Transport</h2>
+                    <p>We handle motorcycles, ATVs, boats, and other specialty vehicles with the same attention to detail. Every carrier is equipped with the tools and expertise for safe handling and transport.</p>
+                    <div class="specialty-grid">
+                        <div class="specialty-item">
+                            <i class="fas fa-motorcycle"></i>
+                            <h4>Motorcycles</h4>
+                        </div>
+                        <div class="specialty-item">
+                            <i class="fas fa-tractor"></i>
+                            <h4>ATVs & UTVs</h4>
+                        </div>
+                        <div class="specialty-item">
+                            <i class="fas fa-ship"></i>
+                            <h4>Boats</h4>
+                        </div>
+                        <div class="specialty-item">
+                            <i class="fas fa-car-side"></i>
+                            <h4>Classic Cars</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-image">
+                    <img src="./images/images.jpeg" alt="Motorcycle Transport">
+                </div>
+            </div>
+
+            <!-- Heavy Equipment -->
+            <div class="service-detail reverse">
+                <div class="service-info">
+                    <h2>Heavy Equipment Transport</h2>
+                    <p>Need to move oversized machinery or construction equipment? Our heavy-haul division specializes in transporting large and industrial units safely and efficiently.</p>
+                    <ul class="service-list">
+                        <li>Construction equipment</li>
+                        <li>Farm machinery</li>
+                        <li>Industrial equipment</li>
+                        <li>Oversized loads</li>
+                        <li>Permit coordination</li>
+                    </ul>
+                </div>
+                <div class="service-image">
+                    <img src="./images/preston-a-larimer-5ffMql3mX_o-unsplash.jpg" alt="Heavy Equipment Transport">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Shipping with The Wize Auto Transport is simple and transparent.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <h3>Request Your Quote</h3>
+                    <p>Provide pickup and drop-off details. Our team will respond with an accurate, upfront quote — no hidden fees.</p>
+                </div>
+                <div class="step">
+                    <h3>Carrier Assignment</h3>
+                    <p>Once you approve, we match your shipment with a licensed, insured carrier from our nationwide network.</p>
+                </div>
+                <div class="step">
+                    <h3>Pickup & Transport</h3>
+                    <p>Your vehicle is inspected, loaded, and transported safely to its destination.</p>
+                </div>
+                <div class="step">
+                    <h3>Delivery & Confirmation</h3>
+                    <p>Upon arrival, inspect your vehicle and sign off once you're fully satisfied.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Us</h2>
+                <p>Trusted by individuals, dealerships, and businesses nationwide</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Licensed & Insured</h3>
+                    <p>All our carriers are licensed, bonded, and fully insured for your peace of mind.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Real-Time Updates</h3>
+                    <p>Stay informed with 24/7 support and real-time tracking throughout the process.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Competitive Pricing</h3>
+                    <p>Transparent, competitive pricing with no hidden fees or surprises.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>No Upfront Payment</h3>
+                    <p>You only pay once your carrier is assigned and confirmed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Not Sure Which Service You Need?</h2>
+            <p>Our experts can help you choose the right transport solution for your specific needs.</p>
+            <a href="#contact" class="btn">Contact Us Today</a>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our auto transport services</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How much does car shipping cost?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pricing depends on distance, route, vehicle size, and shipping type. We offer competitive rates with zero hidden charges.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is my vehicle insured during transport?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. Every shipment includes full insurance coverage for your peace of mind.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I put personal items in my car?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A small amount (under 100 lbs) is typically allowed, but personal items are not insured — we recommend keeping valuables separate.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need to pay upfront?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No. You only pay once your carrier has been assigned and confirmed.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does delivery take?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Transit times vary by route — short-distance moves take 1–3 days, while cross-country shipments may take 5–9 days.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Will my vehicle be tracked?
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes. Our support team provides updates throughout the entire transport process.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us Today</h2>
+                <p>Get in touch with our team for personalized assistance</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Let's Get Your Vehicle Moving</h3>
+                    <p>Ready to ship your car or fleet? Contact The Wize Auto Transport today for a free quote or personalized consultation.</p>
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i class="fas fa-phone"></i>
+                            <span>307-453-0502</span>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@thewizeagency.com</span>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>30 N Gould St, Sheridan, WY 82801, USA</span>
+                        </div>
+                         <div class="contact-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>Monday - Saturday : 9am - 6pm</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3 style="color: var(--dark);">Send Us a Message</h3>
+                    <!-- 🔥 UPDATED FORM WITH QUOTE ID FIELD -->
+                    <form action="https://formspree.io/f/xldpzwqr" method="POST" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required placeholder="3074530502">
+                        </div>
+                        
+                        <!-- 🔥 NAYA FIELD: Quote ID Auto-filled -->
+                        <div class="form-group">
+                            <label for="quoteId">Quote ID (Auto-filled)</label>
+                            <input type="text" id="quoteId" name="quote_id" class="form-control" readonly style="background-color: #f8f9fa;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicle">Vehicle Type / Year / Model *</label>
+                            <input type="text" id="vehicle" name="vehicle" class="form-control" required>
+                        </div>
+                        
+                        <!-- 🔥 HIDDEN FIELDS Calculator Data Ke Liye -->
+                        <input type="hidden" name="calculated_price" id="hiddenPrice">
+                        <input type="hidden" name="transport_type" id="hiddenTransportType">
+                        <input type="hidden" name="vehicle_type" id="hiddenVehicleType">
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" class="form-control" rows="4" placeholder="Tell us about your transport needs..."></textarea>
+                        </div>
+                        
+                        <input type="hidden" name="_subject" value="New Auto Transport Quote - The Wize Agency">
+                        <input type="hidden" name="_replyto" value="info@thewizeagency.com">
+                        
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                    
+                    <div id="formSuccess" class="form-success">
+                        Thank you! Your message has been sent successfully. We will contact you within 24 hours.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>The Wize Agency</h3>
+                    <p>Your trusted partner in nationwide auto logistics. We make vehicle shipping simple, reliable, and affordable.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="transportation.html">Transportation</a></li>
+                        <li><a href="digital.html">Digital Solutions</a></li>
+                        <li><a href="youtube.html">YouTube/Media</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Insurance Info</a></li>
+                        <li><a href="#">Carrier Agreement</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Wize Auto Transport. All rights reserved.</p>
+                <p>"Your trusted partner in nationwide auto logistics."</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const toggle = question.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('active');
+                toggle.classList.toggle('active');
+            });
+        });
+
+        // 🔥 CALCULATOR JAVASCRIPT - UPDATED
+        const pricingConfig = {
+            base_rates_per_mile: {
+                under_200: 2.50,
+                "200_500": 1.75,
+                "500_1000": 1.25,
+                "1000_1500": 0.95,
+                "1500_plus": 0.75
+            },
+            vehicle_multipliers: {
+                sedan: 1.0,
+                suv: 1.3,
+                truck: 1.5,
+                van: 1.4,
+                motorcycle: 0.7,
+                atv: 0.8,
+                boat: 1.8
+            },
+            condition_surcharges: {
+                running: 0,
+                non_running: 150
+            },
+            transport_type_multipliers: {
+                open: 1.0,
+                enclosed: 1.6
+            },
+            speed_fees: {
+                standard: 0,
+                expedited: 200,
+                rush: 500
+            },
+            extra_services: {
+                top_load: 100,
+                guaranteed_pickup: 75,
+                weekend_pickup: 125
+            },
+            broker_margin_percent: 18
+        };
+
+        const zipDistances = {
+            "33101_77001": 1189, "33101_90001": 2732, "77001_90001": 1375,
+            "10001_60601": 790, "90001_60601": 2014, "33101_10001": 1080,
+            "77001_10001": 1425, "90210_10001": 2786, "94102_60601": 1857,
+            "75201_90001": 1240, "default": 800
+        };
+
+        // Calculator Form
+        document.getElementById('calculatorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateQuote();
+        });
+
+        function calculateQuote() {
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resultSection = document.getElementById('quoteResult');
+            
+            calculateBtn.textContent = 'Calculating...';
+            calculateBtn.disabled = true;
+            
+            setTimeout(() => {
+                try {
+                    const formData = {
+                        pickupZip: document.getElementById('pickupZip').value.trim(),
+                        deliveryZip: document.getElementById('deliveryZip').value.trim(),
+                        vehicleType: document.getElementById('vehicleType').value,
+                        vehicleCondition: document.getElementById('vehicleCondition').value,
+                        transportType: document.getElementById('transportType').value,
+                        speedPriority: document.getElementById('speedPriority').value,
+                        extraServices: getSelectedExtraServices()
+                    };
+
+                    if (!formData.pickupZip || !formData.deliveryZip) {
+                        throw new Error('Please enter both ZIP codes');
+                    }
+                    if (!formData.vehicleType) {
+                        throw new Error('Please select vehicle type');
+                    }
+
+                    const distance = calculateDistance(formData.pickupZip, formData.deliveryZip);
+                    const result = performCalculation(formData, distance);
+                    displayQuoteResult(result, distance);
+
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                } finally {
+                    calculateBtn.textContent = 'Calculate Instant Quote';
+                    calculateBtn.disabled = false;
+                }
+            }, 1000);
+        }
+
+        function calculateDistance(zip1, zip2) {
+            const key = `${zip1}_${zip2}`;
+            const reverseKey = `${zip2}_${zip1}`;
+            return zipDistances[key] || zipDistances[reverseKey] || zipDistances.default;
+        }
+
+        function performCalculation(formData, distance) {
+            let baseRatePerMile;
+            if (distance < 200) baseRatePerMile = pricingConfig.base_rates_per_mile.under_200;
+            else if (distance < 500) baseRatePerMile = pricingConfig.base_rates_per_mile["200_500"];
+            else if (distance < 1000) baseRatePerMile = pricingConfig.base_rates_per_mile["500_1000"];
+            else if (distance < 1500) baseRatePerMile = pricingConfig.base_rates_per_mile["1000_1500"];
+            else baseRatePerMile = pricingConfig.base_rates_per_mile["1500_plus"];
+
+            let baseCost = distance * baseRatePerMile;
+            const vehicleMultiplier = pricingConfig.vehicle_multipliers[formData.vehicleType] || 1.0;
+            let priceAfterVehicle = baseCost * vehicleMultiplier;
+            let vehicleSurcharge = priceAfterVehicle - baseCost;
+
+            const conditionFee = pricingConfig.condition_surcharges[formData.vehicleCondition] || 0;
+            let priceAfterCondition = priceAfterVehicle + conditionFee;
+
+            const transportMultiplier = pricingConfig.transport_type_multipliers[formData.transportType] || 1.0;
+            let priceAfterTransport = priceAfterCondition * transportMultiplier;
+            let transportFee = priceAfterTransport - priceAfterCondition;
+
+            const speedFee = pricingConfig.speed_fees[formData.speedPriority] || 0;
+            let priceAfterSpeed = priceAfterTransport + speedFee;
+
+            let extraServicesFee = 0;
+            formData.extraServices.forEach(service => {
+                extraServicesFee += pricingConfig.extra_services[service] || 0;
+            });
+            let priceAfterServices = priceAfterSpeed + extraServicesFee;
+
+            const brokerMargin = (priceAfterServices * pricingConfig.broker_margin_percent) / 100;
+            const totalPrice = priceAfterServices + brokerMargin;
+
+            return {
+                baseCost: Math.round(baseCost),
+                vehicleSurcharge: Math.round(vehicleSurcharge),
+                conditionFee: conditionFee,
+                transportFee: Math.round(transportFee),
+                speedFee: speedFee,
+                extraServicesFee: extraServicesFee,
+                brokerMargin: Math.round(brokerMargin),
+                totalPrice: Math.round(totalPrice),
+                quoteId: 'WIZE-' + Math.random().toString(36).substr(2, 8).toUpperCase()
+            };
+        }
+
+        function getSelectedExtraServices() {
+            const checkboxes = document.querySelectorAll('input[name="extraServices"]:checked');
+            return Array.from(checkboxes).map(checkbox => checkbox.value);
+        }
+
+        // 🔥 NAYA FUNCTION: Calculator Data Store Karega
+        function storeCalculatorData(quoteId, totalPrice) {
+            localStorage.setItem('lastQuoteId', quoteId);
+            localStorage.setItem('lastTotalPrice', totalPrice);
+            localStorage.setItem('vehicleType', document.getElementById('vehicleType').value);
+            localStorage.setItem('transportType', document.getElementById('transportType').value);
+        }
+
+        // 🔥 UPDATE: Display Quote Result Function
+        function displayQuoteResult(result, distance) {
+            const resultHTML = `
+                <div class="result-header">
+                    <h4>✅ Your Instant Quote is Ready!</h4>
+                    <p>Good for 30 days • No hidden fees</p>
+                </div>
+                
+                <div class="total-price">$${result.totalPrice}</div>
+                <p style="text-align: center;"><strong>📏 Distance:</strong> ${distance} miles</p>
+                <p style="text-align: center;"><strong>🆔 Quote ID:</strong> ${result.quoteId}</p>
+                
+                <div class="price-breakdown">
+                    <h5 style="margin-bottom: 10px; color: #495057; font-size: 0.9rem;">💰 Price Breakdown:</h5>
+                    <div class="breakdown-item">
+                        <span>Base Transport Cost:</span>
+                        <span>$${result.baseCost}</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Vehicle Type Surcharge:</span>
+                        <span>$${result.vehicleSurcharge}</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Condition Fee:</span>
+                        <span>$${result.conditionFee}</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Transport Type:</span>
+                        <span>$${result.transportFee}</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Delivery Speed:</span>
+                        <span>$${result.speedFee}</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Extra Services:</span>
+                        <span>$${result.extraServicesFee}</span>
+                    </div>
+                    <div class="breakdown-item breakdown-total">
+                        <span>Total Estimated Cost:</span>
+                        <span>$${result.totalPrice}</span>
+                    </div>
+                </div>
+                
+                <div class="calculator-action-buttons">
+                    <button type="button" class="btn btn-primary" onclick="bookQuote('${result.quoteId}', ${result.totalPrice})">
+                        📞 Book This Quote
+                    </button>
+                    <button type="button" class="btn-outline" onclick="resetCalculator()">
+                        ↻ Get Another Quote
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('quoteResult').innerHTML = resultHTML;
+            document.getElementById('quoteResult').style.display = 'block';
+            
+            // 🔥 Calculator Data Store Karein
+            storeCalculatorData(result.quoteId, result.totalPrice);
+        }
+
+        // 🔥 UPDATE: Book Quote Function
+        function bookQuote(quoteId, totalPrice) {
+            // Contact form ko auto-fill karein
+            document.getElementById('quoteId').value = quoteId;
+            document.getElementById('hiddenPrice').value = totalPrice;
+            document.getElementById('hiddenTransportType').value = localStorage.getItem('transportType');
+            document.getElementById('hiddenVehicleType').value = localStorage.getItem('vehicleType');
+            
+            // Vehicle field auto-fill karein
+            const vehicleType = localStorage.getItem('vehicleType');
+            if (vehicleType) {
+                document.getElementById('vehicle').value = vehicleType.charAt(0).toUpperCase() + vehicleType.slice(1);
+            }
+            
+            // Scroll to contact form
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function resetCalculator() {
+            document.getElementById('calculatorForm').reset();
+            document.getElementById('quoteResult').style.display = 'none';
+            localStorage.clear();
+        }
+
+        // 🔥 IMPROVED FORM SUBMISSION
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const phone = document.getElementById('phone').value;
+            const cleanPhone = phone.replace(/\D/g, '');
+            
+            if (cleanPhone.length !== 10) {
+                alert('Please enter a valid 10-digit phone number (without spaces or dashes)');
+                document.getElementById('phone').focus();
+                return;
+            }
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            const formSuccess = document.getElementById('formSuccess');
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            const formData = new FormData(this);
+            
+            // Phone number clean karein
+            formData.set('phone', cleanPhone);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success message show karein
+                    formSuccess.style.display = 'block';
+                    this.reset();
+                    localStorage.clear(); // Clear all stored data
+                    
+                    // Success message 5 seconds baad hide ho jaye
+                    setTimeout(() => {
+                        formSuccess.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                alert('Sorry, there was an error sending your message. Please try again or call us directly at 307-453-0502.');
+                console.error('Form submission error:', error);
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero animation
+        gsap.to('.hero-content', { opacity: 1, x: 0, duration: 1, delay: 0.2 });
+        gsap.to('.calculator-card', { opacity: 1, x: 0, duration: 1, delay: 0.5 });
+
+        // Service cards animation
+        gsap.utils.toArray('.service-card').forEach((card, i) => {
+            gsap.to(card, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                delay: i * 0.1
+            });
+        });
+
+        // Steps animation
+        gsap.utils.toArray('.step').forEach((step, i) => {
+            gsap.to(step, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: step,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                delay: i * 0.1
+            });
+        });
+
+        // Feature cards animation
+        gsap.utils.toArray('.feature-card').forEach((card, i) => {
+            gsap.to(card, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                delay: i * 0.1
+            });
+        });
+
+        // FAQ items animation
+        gsap.utils.toArray('.faq-item').forEach((item, i) => {
+            gsap.to(item, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                delay: i * 0.1
+            });
+        });
+
+        // Contact animation
+        gsap.to('.contact-info', {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: '.contact',
+                start: 'top 70%',
+                end: 'bottom 30%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        gsap.to('.contact-form', {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: '.contact',
+                start: 'top 70%',
+                end: 'bottom 30%',
+                toggleActions: 'play none none reverse'
+            },
+            delay: 0.3
+        });
+    </script>
+</body>
+</html>
