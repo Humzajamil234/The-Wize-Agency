@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphic Design - The Wize Agency</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #f59e0b;
+            --accent-dark: #d97706;
+            --accent-light: #fbbf24;
+            --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --accent-gradient-hover: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--secondary);
+            color: var(--primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .header-scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-800);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-cta {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-gradient-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-800);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background: var(--accent-gradient);
+            opacity: 0.03;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+        }
+
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent);
+            padding: 0.75rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.75rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--gray-900);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray-800);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1.125rem 2.25rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-gradient-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gray-800);
+            padding: 1.125rem 2.25rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gray-200);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--gray-800);
+            font-weight: 600;
+        }
+
+        /* Services Navigation */
+        .services-nav {
+            background: var(--secondary);
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+        }
+
+        .services-nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .service-nav-btn {
+            background: var(--secondary);
+            border: 2px solid var(--gray-200);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .service-nav-btn.active,
+        .service-nav-btn:hover {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Service Sections */
+        .service-section {
+            padding: 6rem 0;
+            display: none;
+        }
+
+        .service-section.active {
+            display: block;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-section:nth-child(even) {
+            background: var(--gray-50);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-subtitle {
+            display: inline-block;
+            background: var(--gray-100);
+            color: var(--accent);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--gray-900);
+        }
+
+        .section-desc {
+            font-size: 1.25rem;
+            color: var(--gray-800);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        /* Service Content */
+        .service-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .service-text h3 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--gray-900);
+            line-height: 1.2;
+        }
+
+        .service-text p {
+            color: var(--gray-800);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .service-image {
+            position: relative;
+        }
+
+        .service-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Design Elements Grid */
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .element-card {
+            background: var(--secondary);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-200);
+        }
+
+        .element-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .element-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .element-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .element-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .element-card p {
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* Portfolio Showcase */
+        .portfolio-showcase {
+            padding: 6rem 0;
+            background: var(--gray-50);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-item {
+            background: var(--secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .portfolio-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-info {
+            padding: 2rem;
+        }
+
+        .portfolio-info h4 {
+            font-size: 1.375rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--gray-900);
+        }
+
+        .portfolio-info p {
+            color: var(--gray-800);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-tag {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 6rem 0;
+            background: var(--secondary);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .process-step {
+            background: var(--secondary);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-200);
+            position: relative;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .process-step h3 {
+            font-size: 1.375rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .process-step p {
+            color: var(--gray-800);
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 0;
+            background: var(--gray-900);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-desc {
+            font-size: 1.375rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        .cta-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-light {
+            background: white;
+            color: var(--accent);
+            padding: 1.125rem 2.25rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-light:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            color: white;
+            padding: 1.125rem 2.25rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline-light:hover {
+            background: white;
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            color: white;
+            padding: 5rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col p {
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.875rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-gradient);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3.25rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .service-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.75rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .services-nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .service-nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-btns {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .elements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-title {
+                font-size: 2.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    TheWizeAgency
+                    <div class="logo-dot"></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html" class="active">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <a href="contact.html" class="nav-cta">
+                    <i class="fas fa-paper-plane"></i>
+                    Get Started
+                </a>
+                <button class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-paint-brush"></i>
+                    Professional Graphic Design
+                </div>
+                <h1>Exceptional Graphic Design That Captivates & Converts</h1>
+                <p>We create stunning visual content that communicates your message, enhances your brand, and drives engagement across all platforms and media.</p>
+                <div class="hero-btns">
+                    <a href="#services" class="btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Explore Design Services
+                    </a>
+                    <a href="#portfolio" class="btn-secondary">
+                        <i class="fas fa-eye"></i>
+                        View Design Portfolio
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Design Projects</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Creative Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Navigation -->
+    <section class="services-nav">
+        <div class="container">
+            <div class="services-nav-container">
+                <button class="service-nav-btn active" data-target="marketing-collateral">
+                    <i class="fas fa-file-alt"></i>
+                    Marketing Collateral
+                </button>
+                <button class="service-nav-btn" data-target="social-graphics">
+                    <i class="fas fa-share-alt"></i>
+                    Social Media Graphics
+                </button>
+                <button class="service-nav-btn" data-target="motion-graphics">
+                    <i class="fas fa-film"></i>
+                    Motion Graphics
+                </button>
+                <button class="service-nav-btn" data-target="ad-creatives">
+                    <i class="fas fa-bullhorn"></i>
+                    Ad Creatives
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketing Collateral Section -->
+    <section id="marketing-collateral" class="service-section active">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Print & Digital Materials</div>
+                <h2 class="section-title">Marketing Collateral Design</h2>
+                <p class="section-desc">Professional print and digital marketing materials that effectively communicate your brand message and drive business results.</p>
+            </div>
+            <div class="service-content">
+                <div class="service-text">
+                    <h3>Professional Marketing Materials</h3>
+                    <p>We design comprehensive marketing collateral that strengthens your brand presence and supports your sales and marketing efforts across both print and digital channels.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Professional Brochures & Booklets</li>
+                        <li><i class="fas fa-check"></i> Eye-catching Flyers & Leaflets</li>
+                        <li><i class="fas fa-check"></i> Premium Business Cards</li>
+                        <li><i class="fas fa-check"></i> Corporate Stationery Design</li>
+                        <li><i class="fas fa-check"></i> Presentation Decks & Pitch Books</li>
+                        <li><i class="fas fa-check"></i> Sales Sheets & One-pagers</li>
+                    </ul>
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-file-download"></i>
+                        Design Your Collateral
+                    </a>
+                </div>
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1565688534245-05d6b5be184a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Marketing Collateral">
+                </div>
+            </div>
+            <div class="elements-grid">
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h4>Brochures</h4>
+                    <p>Multi-page brochures that tell your brand story effectively</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h4>Flyers</h4>
+                    <p>Attention-grabbing flyers for events and promotions</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h4>Business Cards</h4>
+                    <p>Memorable business cards that make lasting impressions</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4>Stationery</h4>
+                    <p>Complete corporate stationery suite</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Graphics Section -->
+    <section id="social-graphics" class="service-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Platform-Specific Design</div>
+                <h2 class="section-title">Social Media Graphics</h2>
+                <p class="section-desc">Engaging, platform-optimized graphics that capture attention and drive social media engagement across all channels.</p>
+            </div>
+            <div class="service-content">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Social Media Graphics">
+                </div>
+                <div class="service-text">
+                    <h3>Platform-Optimized Social Graphics</h3>
+                    <p>We create scroll-stopping social media graphics tailored to each platform's specifications and audience expectations, ensuring maximum engagement and brand consistency.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Instagram Posts & Stories</li>
+                        <li><i class="fas fa-check"></i> Facebook Cover & Post Graphics</li>
+                        <li><i class="fas fa-check"></i> LinkedIn Professional Graphics</li>
+                        <li><i class="fas fa-check"></i> Twitter Header & Post Designs</li>
+                        <li><i class="fas fa-check"></i> Pinterest Pins & Boards</li>
+                        <li><i class="fas fa-check"></i> Social Media Templates</li>
+                    </ul>
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-share-alt"></i>
+                        Create Social Graphics
+                    </a>
+                </div>
+            </div>
+            <div class="elements-grid">
+                <div class="element-card">
+                    <div class="element-icon" style="background: linear-gradient(135deg, #E4405F 0%, #C13584 100%);">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <h4>Instagram</h4>
+                    <p>Posts, stories, and reels optimized for engagement</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon" style="background: linear-gradient(135deg, #1877F2 0%, #0D5FD9 100%);">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <h4>Facebook</h4>
+                    <p>Cover photos, posts, and event graphics</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon" style="background: linear-gradient(135deg, #0A66C2 0%, #08448F 100%);">
+                        <i class="fab fa-linkedin-in"></i>
+                    </div>
+                    <h4>LinkedIn</h4>
+                    <p>Professional graphics for B2B audience</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon" style="background: linear-gradient(135deg, #1DA1F2 0%, #0D8BD9 100%);">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <h4>Twitter</h4>
+                    <p>Headers, posts, and thread graphics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Motion Graphics Section -->
+    <section id="motion-graphics" class="service-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Dynamic Visual Content</div>
+                <h2 class="section-title">Motion Graphics & Video Thumbnails</h2>
+                <p class="section-desc">Engaging animated content and compelling video thumbnails that capture attention and drive viewership.</p>
+            </div>
+            <div class="service-content">
+                <div class="service-text">
+                    <h3>Dynamic Motion Content</h3>
+                    <p>We create captivating motion graphics and eye-catching video thumbnails that stop viewers in their tracks and encourage engagement with your video content.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Animated Logo Intros & Outros</li>
+                        <li><i class="fas fa-check"></i> Explainer Video Animations</li>
+                        <li><i class="fas fa-check"></i> YouTube Video Thumbnails</li>
+                        <li><i class="fas fa-check"></i> Social Media Video Graphics</li>
+                        <li><i class="fas fa-check"></i> Animated Infographics</li>
+                        <li><i class="fas fa-check"></i> Product Demo Animations</li>
+                    </ul>
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-film"></i>
+                        Create Motion Graphics
+                    </a>
+                </div>
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Motion Graphics">
+                </div>
+            </div>
+            <div class="elements-grid">
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h4>Video Thumbnails</h4>
+                    <p>Click-worthy thumbnails that boost CTR</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h4>Animated Logos</h4>
+                    <p>Dynamic logo animations for brand videos</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Animated Infographics</h4>
+                    <p>Moving data visualizations that engage</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h4>Social Videos</h4>
+                    <p>Platform-optimized video content</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Creatives Section -->
+    <section id="ad-creatives" class="service-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">High-Converting Designs</div>
+                <h2 class="section-title">Ad Creative Design</h2>
+                <p class="section-desc">Compelling advertising creatives that capture attention, communicate value, and drive conversions across all media channels.</p>
+            </div>
+            <div class="service-content">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ad Creatives">
+                </div>
+                <div class="service-text">
+                    <h3>High-Performing Ad Designs</h3>
+                    <p>We design advertising creatives that not only look great but are strategically crafted to capture attention, communicate your message clearly, and drive measurable results.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Digital Banner Ads</li>
+                        <li><i class="fas fa-check"></i> Social Media Ad Creatives</li>
+                        <li><i class="fas fa-check"></i> Google Display Network Ads</li>
+                        <li><i class="fas fa-check"></i> Print Advertisement Designs</li>
+                        <li><i class="fas fa-check"></i> Email Marketing Graphics</li>
+                        <li><i class="fas fa-check"></i> Landing Page Visuals</li>
+                    </ul>
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-bullhorn"></i>
+                        Design Ad Creatives
+                    </a>
+                </div>
+            </div>
+            <div class="elements-grid">
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h4>Banner Ads</h4>
+                    <p>Various sizes for web and mobile placement</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>Social Ads</h4>
+                    <p>Platform-specific ad formats and sizes</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h4>Google Ads</h4>
+                    <p>Responsive display and search ads</p>
+                </div>
+                <div class="element-card">
+                    <div class="element-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h4>Print Ads</h4>
+                    <p>Magazine, newspaper, and outdoor advertising</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Showcase -->
+    <section class="portfolio-showcase" id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Our Creative Work</div>
+                <h2 class="section-title">Graphic Design Portfolio</h2>
+                <p class="section-desc">Explore our diverse portfolio of graphic design projects that have helped businesses communicate effectively and achieve their marketing goals.</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1565688534245-05d6b5be184a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Brand Collateral">
+                    </div>
+                    <div class="portfolio-info">
+                        <h4>Corporate Brand Collateral</h4>
+                        <p>Complete marketing collateral suite for tech company</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Brochures</span>
+                            <span class="portfolio-tag">Business Cards</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Social Media Campaign">
+                    </div>
+                    <div class="portfolio-info">
+                        <h4>Social Media Campaign</h4>
+                        <p>Complete social media graphics package for retail brand</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Instagram</span>
+                            <span class="portfolio-tag">Facebook</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ad Campaign">
+                    </div>
+                    <div class="portfolio-info">
+                        <h4>Digital Ad Campaign</h4>
+                        <p>High-converting ad creatives for e-commerce store</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Banner Ads</span>
+                            <span class="portfolio-tag">Social Ads</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Our Creative Process</div>
+                <h2 class="section-title">Design & Development Workflow</h2>
+                <p class="section-desc">A structured approach to creating exceptional graphic design that meets your objectives and exceeds expectations.</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <h3>Discovery & Briefing</h3>
+                    <p>We start by understanding your goals, target audience, and design requirements through comprehensive discovery sessions.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <h3>Concept Development</h3>
+                    <p>Our designers create multiple concepts and visual directions based on your brief and brand guidelines.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <h3>Design & Refinement</h3>
+                    <p>We develop the selected concept into final designs, incorporating your feedback through iterative revisions.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <h3>Delivery & Support</h3>
+                    <p>We deliver all final files in required formats and provide ongoing support for implementation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Elevate Your Visual Identity?</h2>
+                <p class="cta-desc">Let's create stunning graphic design that captures attention, communicates your message, and drives results for your business.</p>
+                <div class="cta-btns">
+                    <a href="contact.html" class="btn-light">
+                        <i class="fas fa-paper-plane"></i>
+                        Start Your Design Project
+                    </a>
+                    <a href="tel:3074530502" class="btn-outline-light">
+                        <i class="fas fa-phone"></i>
+                        (307) 453-0502
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>The Wize Agency</h4>
+                    <p>We deliver premium digital solutions that drive business growth and create exceptional user experiences.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="web-design.html">Web Design & Development</a></li>
+                        <li><a href="seo.html">SEO & Digital Visibility</a></li>
+                        <li><a href="branding.html">Branding & Design</a></li>
+                        <li><a href="graphic-design.html">Graphic Design</a></li>
+                        <li><a href="content-writing.html">Content Writing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 1 Barney Rd, Clifton Park, NY 12065</a></li>
+                        <li><a href="tel:3074530502"><i class="fas fa-phone"></i> (307) 453-0502</a></li>
+                        <li><a href="mailto:info@thewizeagency.com"><i class="fas fa-envelope"></i> info@thewizeagency.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Wize Agency. All rights reserved. | <a href="#" style="color: #94a3b8;">Privacy Policy</a> | <a href="#" style="color: #94a3b8;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Mobile menu functionality
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Service navigation functionality
+        const serviceNavBtns = document.querySelectorAll('.service-nav-btn');
+        const serviceSections = document.querySelectorAll('.service-section');
+
+        serviceNavBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and sections
+                serviceNavBtns.forEach(b => b.classList.remove('active'));
+                serviceSections.forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Show corresponding section
+                const targetId = btn.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+                
+                // Scroll to section
+                document.getElementById(targetId).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero animations
+        gsap.from('.hero-badge', {
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            ease: "power3.out"
+        });
+
+        gsap.from('.hero h1', {
+            duration: 1.2,
+            y: 50,
+            opacity: 0,
+            delay: 0.2,
+            ease: "power3.out"
+        });
+
+        gsap.from('.hero p', {
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            delay: 0.4,
+            ease: "power3.out"
+        });
+
+        gsap.from('.hero-btns', {
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            delay: 0.6,
+            ease: "power3.out"
+        });
+
+        gsap.from('.hero-stats', {
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            delay: 0.8,
+            ease: "power3.out"
+        });
+
+        // Service sections animation
+        gsap.utils.toArray('.service-section.active .service-content').forEach(content => {
+            gsap.from(content, {
+                scrollTrigger: {
+                    trigger: content,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 60,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+
+        // Element cards animation
+        gsap.utils.toArray('.element-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: "power3.out"
+            });
+        });
+
+        // Portfolio items animation
+        gsap.utils.toArray('.portfolio-item').forEach((item, i) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 85%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.15,
+                ease: "power3.out"
+            });
+        });
+
+        // Process steps animation
+        gsap.utils.toArray('.process-step').forEach((step, i) => {
+            gsap.from(step, {
+                scrollTrigger: {
+                    trigger: step,
+                    start: "top 85%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.15,
+                ease: "power3.out"
+            });
+        });
+
+        // CTA animation
+        gsap.from('.cta-content', {
+            scrollTrigger: {
+                trigger: '.cta',
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+    </script>
+</body>
+</html>

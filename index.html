@@ -327,7 +327,37 @@
         .service-icon {
             font-size: 3rem;
             margin-bottom: 20px;
-            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        
+        /* Updated Service Icons Colors */
+        .service-card:nth-child(1) .service-icon {
+            color: hsl(282, 73%, 29%); /* Web Design - Soft Blue */
+        }
+
+        .service-card:nth-child(2) .service-icon {
+            color: #067a6c; /* SEO - Purple */
+        }
+
+        .service-card:nth-child(3) .service-icon {
+            color: #f5576c; /* Branding - Pink/Red */
+        }
+
+        .service-card:nth-child(4) .service-icon {
+            color: #4facfe; /* Social Media - Bright Blue */
+        }
+
+        .service-card:nth-child(5) .service-icon {
+            color: #43e97b; /* Graphic Design - Green */
+        }
+
+        .service-card:nth-child(6) .service-icon {
+            color: #fa709a; /* Content Writing - Coral */
+        }
+
+        /* Hover effect for icons */
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
         }
         
         .service-card h3 {
@@ -341,17 +371,34 @@
             flex-grow: 1;
         }
         
+        /* Updated Learn More Button */
         .service-link {
-            color: var(--primary-color);
+            color: var(--secondary-color);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 12px 25px;
+            border-radius: 30px;
             font-weight: 600;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             margin-top: auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border: none;
+            width: 160px;
+            margin: 20px auto 0;
+        }
+        
+        .service-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: var(--secondary-color);
         }
         
         .service-link i {
-            margin-left: 5px;
+            margin-left: 8px;
             transition: transform 0.3s ease;
         }
         
@@ -392,92 +439,6 @@
         
         .about-image:hover img {
             transform: scale(1.05);
-        }
-        
-        /* Testimonials Section */
-        .testimonials-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background-color: var(--light-gray);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .testimonial-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .testimonial-header {
-            padding: 25px 25px 0;
-            display: flex;
-            align-items: center;
-        }
-        
-        .testimonial-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--secondary-color);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .testimonial-info {
-            margin-left: 15px;
-        }
-        
-        .testimonial-info h4 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            color: var(--primary-color);
-        }
-        
-        .testimonial-info p {
-            color: var(--accent-color);
-            font-size: 0.9rem;
-        }
-        
-        .testimonial-rating {
-            margin-left: auto;
-            color: #ffc107;
-        }
-        
-        .testimonial-content {
-            padding: 20px 25px 30px;
-            position: relative;
-            flex-grow: 1;
-        }
-        
-        .testimonial-content::before {
-            content: '"';
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            font-size: 60px;
-            color: rgba(0, 0, 0, 0.05);
-            font-family: serif;
-            line-height: 1;
-        }
-        
-        .testimonial-content p {
-            font-style: italic;
-            color: var(--accent-color);
-            position: relative;
-            z-index: 1;
         }
         
         /* FAQ Section */
@@ -739,25 +700,9 @@
             .section-title h2 {
                 font-size: 1.8rem;
             }
-            
-            .testimonial-header {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .testimonial-avatar {
-                margin-bottom: 15px;
-            }
-            
-            .testimonial-info {
-                margin-left: 0;
-            }
-            
-            .testimonial-rating {
-                margin-left: 0;
-                margin-top: 10px;
-            }
+        
         }
+        
     </style>
 </head>
 <!--Start of Tawk.to Script-->
@@ -780,18 +725,23 @@ s0.parentNode.insertBefore(s1,s0);
             <div class="logo">The Wize Agency</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                
+                <li><a href="about.html">About Us</a></li>
                 <!-- Dropdown Menu -->
                 <li class="dropdown">
                     <a href="#services" class="dropbtn">Services <i class="arrow down"></i></a>
                     <ul class="dropdown-content">
-                        <li><a href="transportation.html" target="_blank">Transportation</a></li>
-                        <li><a href="digital.html" target="_blank">Digital Solution</a></li>
-                        <li><a href="youtube.html" target="_blank">YouTube & Social Media</a></li>
+                        <li><a href="Web Design & Development.html" target="_blank">Web Design & Development</a></li>
+                        <li><a href="SEO & Digital Visibility.html" target="_blank">SEO & Digital Visibility</a></li>
+                        <li><a href="Branding & Design.html" target="_blank">Branding & Designing</a></li>
+                        <li><a href="Social Media Management.html" target="_blank">Social Media Management</a></li>
+                        <li><a href="Graphic Design.html" target="_blank">Graphic Design</a></li>
+                        <li><a href="Content Writing & Copywriting.html" target="_blank">Content Writing & Copywriting</a></li>
                     </ul>
                 </li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="Portfolio.html">Portfolio</a></li>
+                <li><a href="Blogs.html">Blogs/Insights</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -820,27 +770,51 @@ s0.parentNode.insertBefore(s1,s0);
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-truck"></i>
+                        <i class="fas fa-code"></i>
                     </div>
-                    <h3>Transportation</h3>
-                    <p>Efficient and reliable transportation solutions for your business needs.</p>
-                    <a href="transportation.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    <h3>Web Design & Development</h3>
+                    <p>Custom websites and web applications designed to enhance user experience and drive conversions.</p>
+                    <a href="Web Design & Development.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-laptop-code"></i>
+                        <i class="fas fa-search"></i>
                     </div>
-                    <h3>Digital Solutions</h3>
-                    <p>Cutting-edge digital solutions to transform your business operations.</p>
-                    <a href="digital.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    <h3>SEO & Digital Visibility</h3>
+                    <p>Improve your search engine rankings and increase your online presence with our SEO strategies.</p>
+                    <a href="SEO & Digital Visibility.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fab fa-youtube"></i>
+                        <i class="fas fa-palette"></i>
                     </div>
-                    <h3>YouTube/Media</h3>
-                    <p>Professional media and YouTube services to enhance your brand presence.</p>
-                    <a href="youtube.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    <h3>Branding & Design</h3>
+                    <p>Create a strong brand identity that resonates with your target audience and sets you apart.</p>
+                    <a href="Branding & Design.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3>Social Media Management</h3>
+                    <p>Engage with your audience and grow your brand across all major social media platforms.</p>
+                    <a href="Social Media Management.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Graphic Design</h3>
+                    <p>Professional graphic design services for all your marketing materials and visual content.</p>
+                    <a href="Graphic Design.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <h3>Content Writing & Copywriting</h3>
+                    <p>Compelling content and persuasive copy that engages readers and drives action.</p>
+                    <a href="Content Writing & Copywriting.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -867,62 +841,7 @@ s0.parentNode.insertBefore(s1,s0);
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Testimonials</h2>
-                <p>What our clients say about us</p>
-            </div>
-            <div class="testimonials-container">
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=70&q=80" alt="Client" class="testimonial-avatar">
-                            <div class="testimonial-info">
-                                <h4>John Smith</h4>
-                                <p>CEO, Logistics Company</p>
-                            </div>
-                            <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="testimonial-content">
-                            <p>"Working with The Wize Agency has been a game-changer for our business. Their transportation solutions have streamlined our operations and significantly reduced costs. The team is professional, responsive, and truly understands our needs."</p>
-                        </div>
-                    </div>
-                    
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=70&q=80" alt="Client" class="testimonial-avatar">
-                            <div class="testimonial-info">
-                                <h4>Michael Chen</h4>
-                                <p>Founder, E-commerce Brand</p>
-                            </div>
-                            <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="testimonial-content">
-                            <p>"The Wize Agency's YouTube and media services have helped us build a strong online community and increase brand awareness. Their creative approach and strategic thinking have been invaluable to our marketing efforts."</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="testimonials.html" class="btn">View All Testimonials</a>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- FAQ Section -->
     <section id="faq">
         <div class="container">
@@ -979,15 +898,15 @@ s0.parentNode.insertBefore(s1,s0);
                     <div class="contact-details">
                         <div>
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>123 Business Street, Suite 100, New York, NY 10001</span>
+                            <span> 1 Barney Rd Clifton Park, NY 12065, USA</span>
                         </div>
                         <div>
                             <i class="fas fa-phone"></i>
-                            <span>+1 (555) 123-4567</span>
+                            <span> 307-453-0502</span>
                         </div>
                         <div>
                             <i class="fas fa-envelope"></i>
-                            <span>info@thewizeagency.com</span>
+                            <span> info@thewizeagency.com</span>
                         </div>
                     </div>
                     <div class="social-links">
@@ -1042,22 +961,28 @@ s0.parentNode.insertBefore(s1,s0);
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="#services">Services</a></li>
+                        <li><a href="Portfolio.html">Portfolio</a></li>
+                        <li><a href="Blogs.html">Blogs/Insights</a></li>
                         <li><a href="contact.html">Contact</a></li>
+                        
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Our Services</h3>
                     <ul class="footer-links">
-                        <li><a href="transportation.html" target="_blank">Transportation</a></li>
-                        <li><a href="digital.html" target="_blank">Digital Solutions</a></li>
-                        <li><a href="youtube.html" target="_blank">YouTube/Media</a></li>
+                        <li><a href="Web Design & Development.html" target="_blank">Web Design & Development</a></li>
+                        <li><a href="SEO & Digital Visibility.html" target="_blank">SEO & Digital Visibility</a></li>
+                        <li><a href="Branding & Design.html" target="_blank">Branding & Design</a></li>
+                        <li><a href="Social Media Management.html" target="_blank">Social Media Management</a></li>
+                        <li><a href="Graphic Design.html" target="_blank">Graphic Design</a></li>
+                        <li><a href="Content Writing & Copywriting.html" target="_blank">Content Writing & Copywriting</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Contact Us</h3>
                     <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Business Street, Suite 100</li>
-                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 1 Barney Rd Clifton Park, NY 12065, USA</li>
+                        <li><i class="fas fa-phone"></i> 307-453-0502</li>
                         <li><i class="fas fa-envelope"></i> info@thewizeagency.com</li>
                     </ul>
                 </div>
