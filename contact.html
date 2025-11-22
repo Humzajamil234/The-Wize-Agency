@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - The Wize Agency</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="./images/feed17ae-6a26-4d86-acf5-989f86432e19.png">
-    <link rel="apple-touch-icon" href="./images/feed17ae-6a26-4d86-acf5-989f86432e19.png">
+    <link rel="icon" type="image/png" href="./assests/TWA LOGO-04.png">
+    <link rel="apple-touch-icon" href="./assests/TWA LOGO-04.png">
     <link rel="shortcut icon" href="./images/feed17ae-6a26-4d86-acf5-989f86432e19.png" type="image/x-icon">
     <style>
         * {
@@ -18,12 +18,14 @@
         }
 
         :root {
-            --primary-color: #000;
+            --primary-color: #000004;
             --secondary-color: #fff;
             --accent-color: #333;
             --text-color: #333;
             --light-gray: #f5f5f5;
             --dark-gray: #222;
+            --gradient: linear-gradient(135deg, #ff007b, #00fff2);
+            --gradient-hover: linear-gradient(135deg, #00fff2, #ff007b);
         }
 
         body {
@@ -59,11 +61,26 @@
             align-items: center;
         }
         
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+        
         .logo {
             font-size: 24px;
             font-weight: bold;
             letter-spacing: 1px;
             animation: fadeIn 1s ease;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
         /* Navbar */
@@ -77,12 +94,6 @@
             position: fixed;
             top: 0;
             z-index: 100;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            color: #fff;
-            font-weight: 700;
         }
 
         .nav-links {
@@ -107,7 +118,7 @@
             bottom: -5px;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #ff007b, #00fff2);
+            background: var(--gradient);
             transition: width 0.4s ease;
         }
         .nav-links li a:hover::after {
@@ -141,7 +152,7 @@
             transition: 0.3s;
         }
         .dropdown-content li a:hover {
-            background: linear-gradient(90deg, #ff007b, #00fff2);
+            background: var(--gradient);
             color: #000;
         }
         .dropdown:hover .dropdown-content {
@@ -214,6 +225,14 @@
             .hamburger {
                 display: flex;
             }
+            
+            .logo {
+                font-size: 20px;
+            }
+            
+            .logo-img {
+                height: 30px;
+            }
         }
 
         .mobile-menu {
@@ -230,11 +249,30 @@
             color: var(--secondary-color);
             padding: 120px 0 60px;
             text-align: center;
+            position: relative;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 1;
         }
 
         .page-header h1 {
             font-size: 3rem;
             margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .breadcrumb {
@@ -251,11 +289,17 @@
         .breadcrumb li a {
             color: var(--secondary-color);
             text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .breadcrumb li a:hover {
+            color: #00fff2;
         }
 
         .breadcrumb li:not(:last-child)::after {
             content: '/';
             margin-left: 15px;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         /* Section Styles */
@@ -280,7 +324,7 @@
             position: absolute;
             width: 50px;
             height: 3px;
-            background-color: var(--primary-color);
+            background: var(--gradient);
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
@@ -323,6 +367,14 @@
             display: flex;
             align-items: center;
             margin-bottom: 15px;
+            transition: 0.3s;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .contact-details div:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+            transform: translateX(5px);
         }
 
         .contact-details i {
@@ -330,12 +382,19 @@
             margin-right: 15px;
             color: var(--primary-color);
             width: 20px;
+            text-align: center;
         }
 
         .contact-form {
             background-color: var(--light-gray);
             padding: 30px;
             border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+        }
+
+        .contact-form:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
@@ -354,12 +413,13 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
         }
 
         textarea.form-control {
@@ -370,19 +430,106 @@
         .btn {
             display: inline-block;
             padding: 12px 30px;
-            background-color: var(--primary-color);
+            background: var(--gradient);
             color: var(--secondary-color);
             text-decoration: none;
             border-radius: 4px;
             font-weight: 600;
             transition: all 0.3s ease;
-            border: 2px solid var(--primary-color);
+            border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-hover);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
         }
 
         .btn:hover {
-            background-color: transparent;
-            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 0;
+            background-color: var(--light-gray);
+        }
+
+        .map-container {
+            height: 400px;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background-color: var(--light-gray);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            padding: 15px 20px;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .faq-question i {
+            transition: 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            background-color: white;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
         }
 
         /* Footer */
@@ -404,6 +551,9 @@
             margin-bottom: 20px;
             position: relative;
             padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .footer-column h3::after {
@@ -411,7 +561,7 @@
             position: absolute;
             width: 50px;
             height: 2px;
-            background-color: var(--secondary-color);
+            background: var(--gradient);
             bottom: 0;
             left: 0;
         }
@@ -432,6 +582,7 @@
 
         .footer-links a:hover {
             padding-left: 5px;
+            color: #00fff2;
         }
 
         .social-links {
@@ -453,8 +604,9 @@
         }
 
         .social-links a:hover {
-            background-color: var(--secondary-color);
+            background: var(--gradient);
             color: var(--primary-color);
+            transform: translateY(-3px);
         }
 
         .copyright {
@@ -462,6 +614,28 @@
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
+        }
+
+        /* Footer logo */
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo-img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .footer-logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         /* Animations */
@@ -514,6 +688,10 @@
             .section-title h2 {
                 font-size: 2rem;
             }
+            
+            .footer-logo {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 576px) {
@@ -523,6 +701,14 @@
 
             .section-title h2 {
                 font-size: 1.8rem;
+            }
+            
+            .footer-logo-text {
+                font-size: 20px;
+            }
+            
+            .footer-logo-img {
+                height: 35px;
             }
         }
     </style>
@@ -544,7 +730,10 @@ s0.parentNode.insertBefore(s1,s0);
     <!-- Header -->
     <header>
         <div class="container header-container">
-            <div class="logo">The Wize Agency</div>
+            <div class="logo-container">
+                <img src="./assests/TWA LOGO-04.png" alt="The Wize Agency Logo" class="logo-img">
+                <div class="logo">The Wize Agency</div>
+            </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About Us</a></li>
@@ -556,8 +745,6 @@ s0.parentNode.insertBefore(s1,s0);
                         <li><a href="SEO & Digital Visibility.html" target="_blank">SEO & Digital Visibility</a></li>
                         <li><a href="Branding & Design.html" target="_blank">Branding & Design</a></li>
                         <li><a href="Social Media Management.html" target="_blank">Social Media Management</a></li>
-                        <li><a href="Graphic Design.html" target="_blank">Graphic Design</a></li>
-                        <li><a href="Content Writing & Copywriting.html" target="_blank">Content Writing & Copywriting</a></li>
                     </ul>
                 </li>
                 <li><a href="Portfolio.html">Portfolio</a></li>
@@ -577,6 +764,7 @@ s0.parentNode.insertBefore(s1,s0);
     <div class="page-header">
         <div class="container">
             <h1>Contact Us</h1>
+            <p>Let's start a conversation about your digital success</p>
             <ul class="breadcrumb">
                 <li><a href="index.html">Home</a></li>
                 <li>Contact</li>
@@ -589,14 +777,13 @@ s0.parentNode.insertBefore(s1,s0);
         <div class="container">
             <div class="contact-intro">
                 <h2>Get In Touch</h2>
-                <p>We'd love to hear from you. Reach out to us and let's discuss how we can help your business grow.</p>
+                <p>We'd love to hear from you. Reach out to us and let's discuss how we can help your business grow in the digital landscape. Our team of experts is ready to provide tailored solutions for your unique needs.</p>
             </div>
 
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Contact Information</h3>
-                    <p>Whether you have a question about our services, need assistance with a project, or want to
-                        explore partnership opportunities, our team is ready to assist you.</p>
+                    <p>Whether you have a question about our services, need assistance with a project, or want to explore partnership opportunities, our team is ready to assist you. We believe in building lasting relationships with our clients.</p>
 
                     <div class="contact-details">
                         <div>
@@ -629,22 +816,83 @@ s0.parentNode.insertBefore(s1,s0);
                     <form id="contactForm">
                         <div class="form-group">
                             <label for="name">Your Name</label>
-                            <input type="text" id="name" class="form-control" required>
+                            <input type="text" id="name" class="form-control" required placeholder="Enter your full name">
                         </div>
                         <div class="form-group">
                             <label for="email">Your Email</label>
-                            <input type="email" id="email" class="form-control" required>
+                            <input type="email" id="email" class="form-control" required placeholder="Enter your email address">
                         </div>
                         <div class="form-group">
                             <label for="subject">Subject</label>
-                            <input type="text" id="subject" class="form-control" required>
+                            <input type="text" id="subject" class="form-control" required placeholder="What is this regarding?">
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" class="form-control" required></textarea>
+                            <textarea id="message" class="form-control" required placeholder="Tell us about your project or inquiry..."></textarea>
                         </div>
                         <button type="submit" class="btn">Send Message</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Find Us</h2>
+                <p>Visit our office or get directions</p>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2923.904395933241!2d-106.9572699241725!3d44.79766407107062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5335f8f5c6a7e3c1%3A0x5b994a3c4da5a91!2s30%20N%20Gould%20St%2C%20Sheridan%2C%20WY%2082801%2C%20USA!5e0!3m2!1sen!2s!4v1712345678901!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Quick answers to common questions</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How quickly can you start working on my project?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We typically begin new projects within 1-2 weeks of signing the agreement. However, this timeline can vary depending on project complexity and our current workload. We'll provide you with a specific timeline during our initial consultation.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer ongoing support after project completion?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer various support packages to ensure your digital assets continue to perform optimally. Our support services include regular updates, security monitoring, performance optimization, and technical assistance.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What industries do you specialize in?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We have experience working with businesses across various industries including e-commerce, healthcare, education, real estate, technology, and professional services. Our adaptable approach allows us to understand and meet the unique needs of each industry.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can you work with my existing team or tools?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We're experienced in collaborating with in-house teams and integrating with existing workflows and tools. We'll adapt to your processes to ensure a seamless partnership.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -655,8 +903,11 @@ s0.parentNode.insertBefore(s1,s0);
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>The Wize Agency</h3>
-                    <p>We provide innovative solutions to help your business grow and succeed in the digital world.</p>
+                    <div class="footer-logo">
+                        <img src="./assests/TWA LOGO-04.png" alt="The Wize Agency Logo" class="footer-logo-img">
+                        <div class="footer-logo-text">The Wize Agency</div>
+                    </div>
+                    <p>We provide innovative solutions to help your business grow and succeed in the digital world. Our team combines creativity with technical expertise to deliver exceptional results.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -679,18 +930,16 @@ s0.parentNode.insertBefore(s1,s0);
                  <div class="footer-column">
                     <h3>Our Services</h3>
                     <ul class="footer-links">
-                        <li><a href="Web Design & Development.html" target="_blank"></a>Web Design & Development</li>
-                        <li><a href="SEO & Digital Visibility.html" target="_blank"></a>SEO & Digital Visibility</li>
-                        <li><a href="Branding & Design.html" target="_blank"></a>Branding & Design</li>
-                        <li><a href="Social Media Management.html" target="_blank"></a>Social Media Management</li>
-                        <li><a href="Graphic Design.html" target="_blank"></a>Graphic Design</li>
-                        <li><a href="Content Writing & Copywriting.html" target="_blank"></a>Content Writing & Copywriting</li>
+                        <li><a href="Web Design & Development.html" target="_blank">Web Design & Development</a></li>
+                        <li><a href="SEO & Digital Visibility.html" target="_blank">SEO & Digital Visibility</a></li>
+                        <li><a href="Branding & Design.html" target="_blank">Branding & Design</a></li>
+                        <li><a href="Social Media Management.html" target="_blank">Social Media Management</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Contact Us</h3>
                     <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> 1 Barney Rd Clifton Park, NY 12065, USA</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 30 N Gould St, Sheridan, WY 82801, USA</li>
                         <li><i class="fas fa-phone"></i> 307-453-0502</li>
                         <li><i class="fas fa-envelope"></i> info@thewizeagency.com</li>
                     </ul>
@@ -718,46 +967,101 @@ s0.parentNode.insertBefore(s1,s0);
 
                 // Simple form validation
                 if (name && email && subject && message) {
-                    // Display success message
-                    const formElements = contactForm.elements;
-                    for (let i = 0; i < formElements.length; i++) {
-                        formElements[i].disabled = true;
-                    }
+                    // Display loading state
+                    const submitBtn = contactForm.querySelector('.btn');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Sending...';
+                    submitBtn.disabled = true;
 
-                    const successMessage = document.createElement('div');
-                    successMessage.style.padding = '15px';
-                    successMessage.style.marginTop = '20px';
-                    successMessage.style.backgroundColor = '#d4edda';
-                    successMessage.style.color = '#155724';
-                    successMessage.style.borderRadius = '4px';
-                    successMessage.textContent = 'Thank you for your message! We will get back to you soon.';
-
-                    contactForm.appendChild(successMessage);
-
-                    // Reset form after 5 seconds
+                    // Simulate form submission (replace with actual form submission)
                     setTimeout(() => {
+                        // Display success message
+                        const successMessage = document.createElement('div');
+                        successMessage.style.padding = '15px';
+                        successMessage.style.marginTop = '20px';
+                        successMessage.style.backgroundColor = '#d4edda';
+                        successMessage.style.color = '#155724';
+                        successMessage.style.borderRadius = '4px';
+                        successMessage.style.border = '1px solid #c3e6cb';
+                        successMessage.textContent = 'Thank you for your message! We will get back to you within 24 hours.';
+
+                        contactForm.appendChild(successMessage);
+
+                        // Reset form
                         contactForm.reset();
-                        for (let i = 0; i < formElements.length; i++) {
-                            formElements[i].disabled = false;
-                        }
-                        successMessage.remove();
-                    }, 5000);
+                        
+                        // Reset button
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+
+                        // Remove success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.remove();
+                        }, 5000);
+                    }, 1500);
+                } else {
+                    // Show error message
+                    const errorMessage = document.createElement('div');
+                    errorMessage.style.padding = '15px';
+                    errorMessage.style.marginTop = '20px';
+                    errorMessage.style.backgroundColor = '#f8d7da';
+                    errorMessage.style.color = '#721c24';
+                    errorMessage.style.borderRadius = '4px';
+                    errorMessage.style.border = '1px solid #f5c6cb';
+                    errorMessage.textContent = 'Please fill in all required fields.';
+
+                    contactForm.appendChild(errorMessage);
+
+                    // Remove error message after 3 seconds
+                    setTimeout(() => {
+                        errorMessage.remove();
+                    }, 3000);
                 }
             });
 
             // Mobile Menu Toggle
-            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
             const navLinks = document.querySelector('.nav-links');
 
-            mobileMenu.addEventListener('click', function () {
-                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '100%';
-                navLinks.style.left = '0';
-                navLinks.style.width = '100%';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.backgroundColor = 'var(--primary-color)';
-                navLinks.style.padding = '20px';
+            hamburger.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Form input validation
+            const formInputs = document.querySelectorAll('.form-control');
+            
+            formInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value.trim() !== '') {
+                        this.style.borderColor = '#28a745';
+                    } else {
+                        this.style.borderColor = '#dc3545';
+                    }
+                });
+                
+                input.addEventListener('focus', function() {
+                    this.style.borderColor = '#007bff';
+                });
             });
         });
     </script>
