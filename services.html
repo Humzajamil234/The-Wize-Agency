@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - The Wize Agency</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-     <link rel="icon" type="image/png" href="./images/feed17ae-6a26-4d86-acf5-989f86432e19.png">
-    <link rel="apple-touch-icon" href="./images/feed17ae-6a26-4d86-acf5-989f86432e19.png">
-    <link rel="shortcut icon" href="./images/feed17ae-6a26-4d86-acf5-989f86432e19.png" type="image/x-icon">
+    <link rel="icon" type="image/png" href="./assests/TWA LOGO-03.png">
+    <link rel="apple-touch-icon" href="./assests/TWA LOGO-03.png">
+    <link rel="shortcut icon" href="./assests/TWA LOGO-03.png" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -17,12 +19,15 @@
         }
         
         :root {
-            --primary-color: #000;
+            --primary-color: #000004;
             --secondary-color: #fff;
             --accent-color: #333;
             --text-color: #333;
             --light-gray: #f5f5f5;
             --dark-gray: #222;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
         }
         
         body {
@@ -31,6 +36,63 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
+
+        /* Page Load Animation */
+        .page-load-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+        }
+
+        .loader-text {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid transparent;
+            border-top: 4px solid #667eea;
+            border-bottom: 4px solid #764ba2;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+            position: relative;
+        }
+
+        .loader::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 4px solid transparent;
+            border-left: 4px solid #764ba2;
+            border-right: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spinReverse 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spinReverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
         
         .container {
             width: 90%;
@@ -38,6 +100,7 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+
         /* Header Styles */
         header {
             background-color: var(--primary-color);
@@ -47,8 +110,9 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
+            border-bottom: 1px solid #333;
         }
         
         .header-container {
@@ -58,31 +122,29 @@
         }
         
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 24px;
             font-weight: bold;
             letter-spacing: 1px;
-            animation: fadeIn 1s ease;
+            text-decoration: none;
+            color: var(--secondary-color);
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            animation: continuousRotate 20s linear infinite;
+        }
+
+        @keyframes continuousRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         /* Navbar */
-        .navbar {
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #0a0a0a;
-            position: fixed;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            color: #fff;
-            font-weight: 700;
-        }
-
         .nav-links {
             display: flex;
             gap: 25px;
@@ -95,9 +157,9 @@
             font-weight: 500;
             position: relative;
             transition: 0.3s;
+            padding: 5px 0;
         }
 
-        /* Neon underline */
         .nav-links li a::after {
             content: '';
             position: absolute;
@@ -105,7 +167,7 @@
             bottom: -5px;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #ff007b, #00fff2);
+            background: var(--gradient-primary);
             transition: width 0.4s ease;
         }
         .nav-links li a:hover::after {
@@ -120,17 +182,18 @@
             display: none;
             flex-direction: column;
             position: absolute;
-            background: rgba(15, 15, 15, 0.95);
+            background: rgba(0, 0, 0, 0.98);
             top: 100%;
             left: 0;
             min-width: 230px;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
             transform: translateY(10px);
             opacity: 0;
             pointer-events: none;
             transition: all 0.4s ease;
+            border: 1px solid #333;
         }
         .dropdown-content li a {
             color: #fff;
@@ -139,7 +202,7 @@
             transition: 0.3s;
         }
         .dropdown-content li a:hover {
-            background: linear-gradient(90deg, #ff007b, #00fff2);
+            background: var(--gradient-primary);
             color: #000;
         }
         .dropdown:hover .dropdown-content {
@@ -183,13 +246,14 @@
                 position: fixed;
                 top: 0;
                 right: -100%;
-                background: #0b0b0b;
+                background: #000000;
                 height: 100vh;
                 width: 250px;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 transition: 0.5s ease;
+                border-left: 1px solid #333;
             }
 
             .nav-links.active {
@@ -203,6 +267,7 @@
                 transform: none;
                 box-shadow: none;
                 width: 100%;
+                background: rgba(20, 20, 20, 0.95);
             }
 
             .dropdown-content.active {
@@ -212,27 +277,89 @@
             .hamburger {
                 display: flex;
             }
+            
+            .logo-img {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .logo {
+                font-size: 20px;
+            }
         }
 
-        .mobile-menu {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        
-        /* Page Header */
+        /* Page Header with Advanced Animation */
         .page-header {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             color: var(--secondary-color);
-            padding: 120px 0 60px;
+            padding: 180px 0 100px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            background: var(--gradient-primary);
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+            background: var(--gradient-secondary);
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+            background: var(--gradient-accent);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
         }
         
         .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
         
         .breadcrumb {
@@ -240,35 +367,52 @@
             justify-content: center;
             list-style: none;
             margin-top: 20px;
+            position: relative;
+            z-index: 2;
         }
         
         .breadcrumb li {
             margin: 0 10px;
+            font-size: 1.1rem;
         }
         
         .breadcrumb li a {
             color: var(--secondary-color);
             text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .breadcrumb li a:hover {
+            color: #667eea;
         }
         
         .breadcrumb li:not(:last-child)::after {
             content: '/';
             margin-left: 15px;
+            color: #667eea;
         }
         
         /* Section Styles */
         section {
-            padding: 80px 0;
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
         
         .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 20px;
             position: relative;
             display: inline-block;
         }
@@ -276,25 +420,31 @@
         .section-title h2::after {
             content: '';
             position: absolute;
-            width: 50px;
-            height: 3px;
-            background-color: var(--primary-color);
-            bottom: -10px;
+            width: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
+            transition: width 1s ease;
         }
         
-        /* Services Section */
+        .section-title.visible h2::after {
+            width: 80px;
+        }
+        
+        /* Services Section with Advanced Animations */
         .services-intro {
             max-width: 800px;
-            margin: 0 auto 60px;
+            margin: 0 auto 80px;
             text-align: center;
         }
         
         .services-intro p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--accent-color);
             margin-bottom: 30px;
+            line-height: 1.8;
         }
         
         .services-grid {
@@ -304,178 +454,328 @@
         }
         
         .service-card {
-            background-color: var(--light-gray);
-            border-radius: 8px;
+            background-color: var(--secondary-color);
+            border-radius: 15px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             border: 1px solid #eee;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+        }
+
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
         
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
         
         .service-image {
-            height: 200px;
+            height: 250px;
             overflow: hidden;
+            position: relative;
+        }
+        
+        .service-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.3));
+            z-index: 1;
         }
         
         .service-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.7s ease;
         }
         
         .service-card:hover .service-image img {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
         
         .service-content {
-            padding: 30px;
+            padding: 40px 30px;
+            position: relative;
         }
         
         .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
+            font-size: 3rem;
+            margin-bottom: 25px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(5deg);
         }
         
         .service-content h3 {
             font-size: 1.8rem;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            color: var(--text-color);
         }
         
         .service-content p {
             color: var(--accent-color);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            line-height: 1.7;
         }
         
         .service-features {
             list-style: none;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         
         .service-features li {
-            padding: 8px 0;
+            padding: 10px 0;
             display: flex;
             align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .service-features li:last-child {
+            border-bottom: none;
         }
         
         .service-features i {
-            color: var(--primary-color);
-            margin-right: 10px;
+            color: #667eea;
+            margin-right: 12px;
+            font-size: 1.1rem;
         }
         
         .service-link {
             display: inline-flex;
             align-items: center;
-            color: var(--primary-color);
+            color: #667eea;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
+            padding: 12px 25px;
+            border: 2px solid #667eea;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .service-link:hover::before {
+            left: 0;
+        }
+        
+        .service-link:hover {
+            color: var(--secondary-color);
+            border-color: transparent;
         }
         
         .service-link i {
-            margin-left: 5px;
+            margin-left: 8px;
             transition: transform 0.3s ease;
         }
         
         .service-link:hover i {
             transform: translateX(5px);
         }
-        
-        /* Process Section */
+
+        /* Process Section with Advanced Design */
         .process {
-            background-color: var(--light-gray);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
         }
-        
+
         .process-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
         }
         
         .process-step {
             text-align: center;
-            padding: 30px;
+            padding: 50px 30px;
             background-color: var(--secondary-color);
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .process-step.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .process-step:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
         
         .step-number {
-            width: 60px;
-            height: 60px;
-            background-color: var(--primary-color);
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
             color: var(--secondary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
-            margin: 0 auto 20px;
+            margin: 0 auto 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-number::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 0.3; }
+        }
+        
+        .process-step:hover .step-number {
+            transform: scale(1.1) rotate(10deg);
         }
         
         .process-step h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
         }
         
         .process-step p {
             color: var(--accent-color);
+            line-height: 1.7;
         }
-        
-        /* CTA Section */
+
+        /* CTA Section with Advanced Design */
         .cta {
-            background-color: var(--primary-color);
+            background: var(--gradient-primary);
             color: var(--secondary-color);
             text-align: center;
-            padding: 100px 0;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .cta .container {
+            position: relative;
+            z-index: 2;
         }
         
         .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
         .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            font-size: 1.3rem;
+            margin-bottom: 40px;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            opacity: 0.9;
         }
         
         .btn {
             display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--secondary-color);
+            padding: 16px 40px;
+            background: var(--secondary-color);
             color: var(--primary-color);
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
             border: 2px solid var(--secondary-color);
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-secondary);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 0;
         }
         
         .btn:hover {
-            background-color: transparent;
             color: var(--secondary-color);
+            border-color: transparent;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
         
         /* Footer */
         footer {
             background-color: var(--primary-color);
             color: var(--secondary-color);
-            padding: 60px 0 20px;
+            padding: 80px 0 30px;
         }
         
         .footer-content {
@@ -497,7 +797,7 @@
             position: absolute;
             width: 50px;
             height: 2px;
-            background-color: var(--secondary-color);
+            background: var(--gradient-primary);
             bottom: 0;
             left: 0;
         }
@@ -511,13 +811,14 @@
         }
         
         .footer-links a {
-            color: var(--secondary-color);
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
             transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
             padding-left: 5px;
+            color: var(--secondary-color);
         }
         
         .social-links {
@@ -539,17 +840,39 @@
         }
         
         .social-links a:hover {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
+            background: var(--gradient-primary);
+            color: var(--secondary-color);
+            transform: translateY(-3px);
         }
         
         .copyright {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
         }
         
+        /* Footer Logo */
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo-img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
         /* Animations */
         @keyframes fadeIn {
             from {
@@ -574,7 +897,15 @@
         /* Responsive Styles */
         @media (max-width: 992px) {
             .page-header h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
                 font-size: 2.5rem;
+            }
+            
+            .cta h2 {
+                font-size: 2.8rem;
             }
         }
         
@@ -583,30 +914,60 @@
                 display: none;
             }
             
-            .mobile-menu {
-                display: block;
+            .hamburger {
+                display: flex;
+            }
+            
+            .page-header {
+                padding: 150px 0 80px;
             }
             
             .page-header h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .section-title h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta h2 {
+                font-size: 2.2rem;
+            }
+            
+            .footer-logo {
+                justify-content: center;
+                text-align: center;
             }
         }
         
         @media (max-width: 576px) {
             .page-header h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .section-title h2 {
                 font-size: 1.8rem;
             }
             
-            .services-grid {
-                grid-template-columns: 1fr;
+            .service-content {
+                padding: 30px 20px;
+            }
+            
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+            
+            .footer-logo-img {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .footer-logo-text {
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -625,10 +986,19 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 <!--End of Tawk.to Script-->
 <body>
-     <!-- Header -->
+    <!-- Page Load Animation -->
+    <div class="page-load-animation" id="pageLoad">
+        <div class="loader-text">The Wize Agency</div>
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header -->
     <header>
         <div class="container header-container">
-            <div class="logo">The Wize Agency</div>
+            <a href="services.html" class="logo">
+                <img src="./assests/TWA LOGO-03.png" alt="The Wize Agency Logo" class="logo-img">
+                The Wize Agency
+            </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About Us</a></li>
@@ -640,14 +1010,11 @@ s0.parentNode.insertBefore(s1,s0);
                         <li><a href="SEO & Digital Visibility.html" target="_blank">SEO & Digital Visibility</a></li>
                         <li><a href="Branding & Design.html" target="_blank">Branding & Design</a></li>
                         <li><a href="Social Media Management.html" target="_blank">Social Media Management</a></li>
-                        <li><a href="Graphic Design.html" target="_blank">Graphic Design</a></li>
-                        <li><a href="Content Writing & Copywriting.html" target="_blank">Content Writing & Copywriting</a></li>
                     </ul>
                 </li>
                 <li><a href="Portfolio.html">Portfolio</a></li>
                 <li><a href="Blogs.html">Blogs/Insights</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
-
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -659,8 +1026,13 @@ s0.parentNode.insertBefore(s1,s0);
 
     <!-- Page Header -->
     <div class="page-header">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
         <div class="container">
-            <h1>Our Services</h1>
+            <h1>Our Premium Services</h1>
             <ul class="breadcrumb">
                 <li><a href="index.html">Home</a></li>
                 <li>Services</li>
@@ -669,71 +1041,91 @@ s0.parentNode.insertBefore(s1,s0);
     </div>
 
     <!-- Services Section -->
-    <section>
+    <section id="services">
         <div class="container">
             <div class="services-intro">
                 <h2>What We Offer</h2>
-                <p>At The Wize Agency, we provide a comprehensive range of services designed to help your business thrive in today's competitive landscape. Our team of experts is dedicated to delivering innovative solutions that drive growth, enhance efficiency, and create sustainable competitive advantages.</p>
+                <p>At The Wize Agency, we provide a comprehensive range of premium services designed to help your business thrive in today's competitive landscape. Our team of experts is dedicated to delivering innovative solutions that drive growth, enhance efficiency, and create sustainable competitive advantages.</p>
             </div>
             
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-image">
-                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Transportation Service">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Web Design & Development">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
-                            <i class="fas fa-truck"></i>
+                            <i class="fas fa-code"></i>
                         </div>
-                        <h3>Transportation</h3>
-                        <p>Our transportation services provide efficient and reliable solutions for all your logistics needs. From fleet management to route optimization, we ensure your goods reach their destination safely and on time.</p>
+                        <h3>Web Design & Development</h3>
+                        <p>Create stunning, responsive websites and powerful web applications that deliver exceptional user experiences and drive business growth.</p>
                         <ul class="service-features">
-                            <li><i class="fas fa-check"></i> Fleet Management</li>
-                            <li><i class="fas fa-check"></i> Route Optimization</li>
-                            <li><i class="fas fa-check"></i> Real-time Tracking</li>
-                            <li><i class="fas fa-check"></i> Cost Reduction Strategies</li>
+                            <li><i class="fas fa-check"></i> Responsive Web Design</li>
+                            <li><i class="fas fa-check"></i> Custom Web Development</li>
+                            <li><i class="fas fa-check"></i> E-commerce Solutions</li>
+                            <li><i class="fas fa-check"></i> Performance Optimization</li>
                         </ul>
-                        <a href="transportation.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                        <a href="Web Design & Development.html" target="_blank" class="service-link">Explore Service <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-image">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Digital Solutions">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="SEO & Digital Visibility">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
-                            <i class="fas fa-laptop-code"></i>
+                            <i class="fas fa-search"></i>
                         </div>
-                        <h3>Digital Solutions</h3>
-                        <p>Transform your business with our cutting-edge digital solutions. We offer a wide range of services including web development, mobile applications, and digital transformation strategies.</p>
+                        <h3>SEO & Digital Visibility</h3>
+                        <p>Boost your online presence with our comprehensive SEO strategies that increase visibility, drive traffic, and generate qualified leads.</p>
                         <ul class="service-features">
-                            <li><i class="fas fa-check"></i> Web Development</li>
-                            <li><i class="fas fa-check"></i> Mobile Applications</li>
-                            <li><i class="fas fa-check"></i> Digital Transformation</li>
-                            <li><i class="fas fa-check"></i> IT Consulting</li>
+                            <li><i class="fas fa-check"></i> Technical SEO Audit</li>
+                            <li><i class="fas fa-check"></i> Content Strategy</li>
+                            <li><i class="fas fa-check"></i> Link Building</li>
+                            <li><i class="fas fa-check"></i> Performance Analytics</li>
                         </ul>
-                        <a href="digital.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                        <a href="SEO & Digital Visibility.html" target="_blank" class="service-link">Explore Service <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-image">
-                        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="YouTube/Media">
+                        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Branding & Design">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
-                            <i class="fab fa-youtube"></i>
+                            <i class="fas fa-palette"></i>
                         </div>
-                        <h3>YouTube/Media</h3>
-                        <p>Enhance your brand presence with our professional media and YouTube services. From content creation to channel management, we help you connect with your audience and grow your online influence.</p>
+                        <h3>Branding & Design</h3>
+                        <p>Develop a powerful brand identity that resonates with your audience and sets you apart from competitors in your market.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Logo & Identity Design</li>
+                            <li><i class="fas fa-check"></i> Brand Strategy</li>
+                            <li><i class="fas fa-check"></i> UI/UX Design</li>
+                            <li><i class="fas fa-check"></i> Marketing Materials</li>
+                        </ul>
+                        <a href="Branding & Design.html" target="_blank" class="service-link">Explore Service <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Social Media Management">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3>Social Media Management</h3>
+                        <p>Engage your audience and grow your brand across all major social media platforms with our comprehensive management services.</p>
                         <ul class="service-features">
                             <li><i class="fas fa-check"></i> Content Creation</li>
-                            <li><i class="fas fa-check"></i> Channel Management</li>
-                            <li><i class="fas fa-check"></i> Video Production</li>
-                            <li><i class="fas fa-check"></i> Social Media Strategy</li>
+                            <li><i class="fas fa-check"></i> Community Management</li>
+                            <li><i class="fas fa-check"></i> Paid Social Advertising</li>
+                            <li><i class="fas fa-check"></i> Performance Reporting</li>
                         </ul>
-                        <a href="youtube.html" target="_blank" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                        <a href="Social Media Management.html" target="_blank" class="service-link">Explore Service <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -750,23 +1142,23 @@ s0.parentNode.insertBefore(s1,s0);
             <div class="process-steps">
                 <div class="process-step">
                     <div class="step-number">1</div>
-                    <h3>Discovery</h3>
-                    <p>We begin by understanding your business, goals, and challenges to develop a customized strategy.</p>
+                    <h3>Discovery & Analysis</h3>
+                    <p>We begin by deeply understanding your business, goals, and challenges to develop a customized strategy that aligns with your vision.</p>
                 </div>
                 <div class="process-step">
                     <div class="step-number">2</div>
-                    <h3>Strategy</h3>
-                    <p>Our team develops a comprehensive plan tailored to your specific needs and objectives.</p>
+                    <h3>Strategy & Planning</h3>
+                    <p>Our team develops a comprehensive plan tailored to your specific needs and objectives, ensuring every detail is considered.</p>
                 </div>
                 <div class="process-step">
                     <div class="step-number">3</div>
-                    <h3>Implementation</h3>
-                    <p>We execute the strategy with precision, ensuring seamless integration with your operations.</p>
+                    <h3>Implementation & Execution</h3>
+                    <p>We execute the strategy with precision and expertise, ensuring seamless integration with your operations and maximum impact.</p>
                 </div>
                 <div class="process-step">
                     <div class="step-number">4</div>
-                    <h3>Optimization</h3>
-                    <p>We continuously monitor and optimize our solutions to ensure maximum performance and ROI.</p>
+                    <h3>Optimization & Growth</h3>
+                    <p>We continuously monitor, analyze, and optimize our solutions to ensure maximum performance, ROI, and sustainable growth.</p>
                 </div>
             </div>
         </div>
@@ -776,8 +1168,8 @@ s0.parentNode.insertBefore(s1,s0);
     <section class="cta">
         <div class="container">
             <h2>Ready to Transform Your Business?</h2>
-            <p>Get in touch with our team today to discuss how our services can help you achieve your business goals.</p>
-            <a href="contact.html" class="btn">Contact Us</a>
+            <p>Get in touch with our team today to discuss how our premium services can help you achieve your business goals and drive exceptional results.</p>
+            <a href="contact.html" class="btn">Start Your Project Now</a>
         </div>
     </section>
 
@@ -786,8 +1178,11 @@ s0.parentNode.insertBefore(s1,s0);
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>The Wize Agency</h3>
-                    <p>We provide innovative solutions to help your business grow and succeed in the digital world.</p>
+                    <div class="footer-logo">
+                        <img src="./assests/TWA LOGO-03.png" alt="The Wize Agency Logo" class="footer-logo-img">
+                        <div class="footer-logo-text">The Wize Agency</div>
+                    </div>
+                    <p>We provide innovative digital solutions to help your business grow and succeed in the modern world. Our expertise drives results.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -804,18 +1199,15 @@ s0.parentNode.insertBefore(s1,s0);
                         <li><a href="Portfolio.html">Portfolio</a></li>
                         <li><a href="Blogs.html">Blogs/Insights</a></li>
                         <li><a href="contact.html">Contact</a></li>
-                        
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Our Services</h3>
                     <ul class="footer-links">
-                        <li><a href="Web Design & Development.html" target="_blank"></a>Web Design & Development</li>
-                        <li><a href="SEO & Digital Visibility.html" target="_blank"></a>SEO & Digital Visibility</li>
-                        <li><a href="Branding & Design.html" target="_blank"></a>Branding & Design</li>
-                        <li><a href="Social Media Management.html" target="_blank"></a>Social Media Management</li>
-                        <li><a href="Graphic Design.html" target="_blank"></a>Graphic Design</li>
-                        <li><a href="Content Writing & Copywriting.html" target="_blank"></a>Content Writing & Copywriting</li>
+                        <li><a href="Web Design & Development.html" target="_blank">Web Design & Development</a></li>
+                        <li><a href="SEO & Digital Visibility.html" target="_blank">SEO & Digital Visibility</a></li>
+                        <li><a href="Branding & Design.html" target="_blank">Branding & Design</a></li>
+                        <li><a href="Social Media Management.html" target="_blank">Social Media Management</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -834,20 +1226,165 @@ s0.parentNode.insertBefore(s1,s0);
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const navLinks = document.querySelector('.nav-links');
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Page Load Animation
+        window.addEventListener('load', function() {
+            const pageLoad = document.getElementById('pageLoad');
+            const loaderText = document.querySelector('.loader-text');
             
-            mobileMenu.addEventListener('click', function() {
-                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '100%';
-                navLinks.style.left = '0';
-                navLinks.style.width = '100%';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.backgroundColor = 'var(--primary-color)';
-                navLinks.style.padding = '20px';
+            // Animate loader text
+            gsap.to(loaderText, {
+                opacity: 1,
+                duration: 1,
+                delay: 0.5
+            });
+            
+            // Complete loading animation
+            setTimeout(() => {
+                gsap.to(pageLoad, {
+                    opacity: 0,
+                    duration: 0.8,
+                    onComplete: function() {
+                        pageLoad.style.display = 'none';
+                        initAnimations();
+                    }
+                });
+            }, 2500);
+        });
+
+        function initAnimations() {
+            // Section animations with ScrollTrigger
+            gsap.utils.toArray('section').forEach(section => {
+                gsap.to(section, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse",
+                        onEnter: () => section.classList.add('visible')
+                    }
+                });
+            });
+
+            // Section title animations
+            gsap.utils.toArray('.section-title').forEach(title => {
+                gsap.to(title, {
+                    scrollTrigger: {
+                        trigger: title,
+                        start: "top 85%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse",
+                        onEnter: () => title.classList.add('visible')
+                    }
+                });
+            });
+
+            // Service cards animation with stagger
+            gsap.utils.toArray('.service-card').forEach((card, i) => {
+                gsap.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse",
+                        onEnter: () => card.classList.add('visible')
+                    }
+                });
+            });
+
+            // Process steps animation
+            gsap.utils.toArray('.process-step').forEach((step, i) => {
+                gsap.to(step, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    scrollTrigger: {
+                        trigger: step,
+                        start: "top 85%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse",
+                        onEnter: () => step.classList.add('visible')
+                    }
+                });
+            });
+
+            // Add hover animations to cards
+            gsap.utils.toArray('.service-card, .process-step').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, {
+                        duration: 0.3,
+                        y: -10,
+                        boxShadow: '0 25px 50px rgba(0,0,0,0.15)',
+                        ease: "power2.out"
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        duration: 0.3,
+                        y: 0,
+                        boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                        ease: "power2.out"
+                    });
+                });
+            });
+        }
+
+        // Mobile menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const dropdownBtn = document.querySelector('.dropbtn');
+        const dropdownContent = document.querySelector('.dropdown-content');
+
+        // Toggle mobile menu
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Mobile dropdown toggle
+        dropdownBtn.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdownContent.classList.toggle('active');
+            }
+        });
+
+        // Close menu when any link is clicked
+        const allLinks = document.querySelectorAll('.nav-links a');
+        allLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                dropdownContent.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>
